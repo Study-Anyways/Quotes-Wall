@@ -67,12 +67,6 @@
 
 
 
-    #scrolling-text .quote-line { white-space: nowrap; font-size: 30px; margin: 0; }
-    /* Only the FIRST quote (top visible) is centered */
-    #scrolling-text .quote-line:first-child { width: 100%; text-align: center; }
-    @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-
     #scrolling-text .quote-line {
       white-space: nowrap;
       font-size: 30px;
@@ -92,7 +86,7 @@
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+ <!-- <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script> -->
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -130,7 +124,7 @@
   <script>
     (function(){
       const nav = document.querySelector('.navbar');
-      let timer;
+      let timere
       function scheduleHide(){
         clearTimeout(timer);
         timer = setTimeout(()=>nav.classList.add('hidden'), 3000); // hide after 3 s
