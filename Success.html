@@ -54,7 +54,6 @@
       await db.collection('quotes').add({
         text,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        approved: false
       });
       document.getElementById('msg').classList.remove('d-none');
       document.getElementById('saveBtn').disabled = true;
