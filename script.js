@@ -1,4 +1,4 @@
-// Firebase 配置（你的 quotes-wall 项目）
+// Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyD-yHwfZxWM1mOJOC6OlMYJiv4qSFEQ3rM",
   authDomain: "quotes-wall-5913f.firebaseapp.com",
@@ -9,29 +9,24 @@ const firebaseConfig = {
   measurementId: "G-C8M26ZD2EW"
 };
 
-// 初始化 Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-// 匿名登录
-
-
-const auth = firebase.auth();
-
+// Anonymous Login
 auth.signInAnonymously()
   .then(() => {
-    console.log("✅ 匿名登录成功");
+    console.log("✅ Logged in anonymously");
   })
   .catch(error => {
-    console.error("❌ 匿名登录失败:", error);
+    console.error("❌ Login failed", error);
   });
 
-
-// 🔽 可添加：实时监听 quotes 数据并插入页面
-db.collection("quotes").onSnapshot(snapshot => {
+// Load and display quotes from Firestore
+db.collection("quotes").orderBy("createdAt", "desc").onSnapshot(snapshot => {
   const container = document.getElementById("scrolling-text");
-  container.innerHTML = ""; // 清空旧内容
+  container.innerHTML = ""; // Clear existing
+
   snapshot.forEach(doc => {
     const div = document.createElement("div");
     div.className = "quote-line";
@@ -39,15 +34,3 @@ db.collection("quotes").onSnapshot(snapshot => {
     container.appendChild(div);
   });
 });
-
-// 🔽 可添加：提交 quote 的逻辑（你可以把这段连接按钮点击事件）
-function submitQuote(text) {
-  db.collection("quotes").add({
-    text: text,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(() => {
-    console.log("Quote added!");
-  }).catch(error => {
-    console.error("Error adding quote:", error);
-  });
-}
